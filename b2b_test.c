@@ -84,7 +84,7 @@ int run_tests (void)
   
   for (i=0; i<sizeof(text)/sizeof(char*); i++)
   {
-    b2b_init (&ctx, BLAKE2b_DIGEST_LENGTH, NULL, 0, 0);
+    b2b_init (&ctx, BLAKE2b_DIGEST_LENGTH, NULL, 0);
     b2b_update (&ctx, text[i], strlen(text[i]));
     b2b_final (dgst, &ctx);
     
@@ -113,7 +113,7 @@ int run_xtests (void)
     keylen = hex2bin (key, BLAKE2B_key[i]);
     outlen = hex2bin (res, BLAKE2B_res[i]);
     
-    b2b_init (&ctx, outlen, key, keylen, 0);
+    b2b_init (&ctx, outlen, key, keylen);
     b2b_update (&ctx, input, inlen);
     b2b_final (dgst, &ctx);
     
@@ -143,7 +143,7 @@ void BLAKE2B_string (char *str, char *key)
 
   printf ("\nBLAKE2B(\"%s\")\n0x", str);
   
-  b2b_init (&ctx, BLAKE2b_DIGEST_LENGTH, key, key!=NULL ? strlen (key) : 0, 0);
+  b2b_init (&ctx, BLAKE2b_DIGEST_LENGTH, key, key!=NULL ? strlen (key) : 0);
   b2b_update (&ctx, str, strlen (str));
   b2b_final (dgst, &ctx);
   
